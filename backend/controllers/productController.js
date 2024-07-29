@@ -99,20 +99,29 @@ exports.updateProduct = async (req, res, next) => {
       product,
     });
   } catch (error) {
+    console.log(error);
     next(new ErrorHandler(error.message, 500));
   }
 };
 
 exports.deleteProduct = async (req, res, next) => {
-  const product = await ProductModel.findById(req.params.id);
-  if (!product) {
-    return next(new ErrorHandler("Product not found", 404));
+  try {
+    const product = await ProductModel.findById(req.params.id);
+
+    if (!product) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+
+    await product.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: "Product deleted",
+    });
+  } catch (error) {
+    console.log(error);
+    next(new ErrorHandler(error.message, 500));
   }
-  await product.deleteOne();
-  res.status(200).json({
-    success: true,
-    message: "Product deleted",
-  });
 };
 
 exports.getProducts = async (req, res, next) => {
@@ -145,6 +154,7 @@ exports.getSingleProduct = async (req, res, next) => {
       product,
     });
   } catch (error) {
+    console.log(error);
     return next(new ErrorHandler(error.message, 500));
   }
 };
