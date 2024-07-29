@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendtoMail");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const mongoose = require("mongoose");
 
 exports.registerUser = async (req, res, next) => {
   try {
@@ -34,6 +35,40 @@ exports.registerUser = async (req, res, next) => {
     res.status(500).json({ message: "User registration failed" });
   }
 };
+
+// exports.registerUser = async (req, res, next) => {
+//     const session = await mongoose.startSession();
+//     session.startTransaction();
+  
+//     try {
+//       // Check if the email already exists in the database
+//       const existingUser = await UserModel.findOne({ email: req.body.email });
+  
+//       if (existingUser) {
+//         await session.abortTransaction();
+//         session.endSession();
+//         return res.status(400).json({ message: "Email address already exists!" });
+//       }
+  
+//       const { firstname, lastname, email, password } = req.body;
+  
+//       // Create a new user if the email is unique
+//       const user = await UserModel.create([{ firstname, lastname, email, password }], { session });
+  
+//       await session.commitTransaction();
+//       session.endSession();
+  
+//       res.status(201).json({
+//         success: true,
+//         user,
+//       });
+//     } catch (error) {
+//       await session.abortTransaction();
+//       session.endSession();
+//       console.error(error);
+//       res.status(500).json({ message: "User registration failed" });
+//     }
+//   };
 
 exports.loginUser = async (req, res, next) => {
   try {

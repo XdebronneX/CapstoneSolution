@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, logoutUser, getProfile, updateProfile, updatePassword, forgotPassword, resetPassword, getUsers, accountDeprovision } = require("../controllers/userController");
+const { registerUser, loginUser, logoutUser, getProfile, updateProfile, updatePassword, forgotPassword, resetPassword, getUsers, updateUser, accountDeprovision } = require("../controllers/userController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth")
 const upload = require("../utils/multer");
 
@@ -17,5 +17,6 @@ router.route('/password/reset/:token').put(resetPassword);
 //** Admin control */
 router.route('/admin/all/users').get(isAuthenticatedUser, authorizeRoles('admin'), getUsers);
 router.patch('/admin/account/deprovision/:id', isAuthenticatedUser, authorizeRoles('admin'), accountDeprovision);
+router.route('/admin/users/:id').patch(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
 
 module.exports = router;
