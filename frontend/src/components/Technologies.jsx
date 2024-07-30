@@ -26,7 +26,7 @@ const Technologies = () => {
             className="p-4 shadow-2 mb-3 inline-block"
             style={{ borderRadius: "10px", backgroundColor: "#f5f5f5" }}
           >
-            <i className="pi pi-globe text-5xl text-gray-800"></i>
+            <i className="pi pi-globe text-5xl text-gray-400"></i>
           </span>
           <div className="text-900 text-xl mb-2 font-medium">Express.js</div>
           <span className="text-700 line-height-3">
@@ -38,7 +38,7 @@ const Technologies = () => {
             className="p-4 shadow-2 mb-3 inline-block"
             style={{ borderRadius: "10px", backgroundColor: "#f5f5f5" }}
           >
-            <i className="pi pi-star text-5xl text-blue-600"></i>
+            <i className="pi pi-desktop text-5xl text-blue-600"></i>
           </span>
           <div className="text-900 text-xl mb-2 font-medium">React.js</div>
           <span className="text-700 line-height-3">Frontend library for building user interfaces.</span>
