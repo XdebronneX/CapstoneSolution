@@ -9,12 +9,12 @@ import '../node_modules/primereact/resources/primereact.min.css'
 import '../node_modules/primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'animate.css';
-
+import store from './store.jsx'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  // </Provider>
+  </Provider>
 );
