@@ -38,6 +38,8 @@ import imgLogo from '../assets/images/logo.png';
 import Footer from "./Footer";
 import Technologies from "./Technologies";
 import ContactUs from "./ContactUs";
+import Social from './Social';
+import Services from './Services';
 
 const Homepage = () => {
   return (
@@ -62,20 +64,25 @@ const Homepage = () => {
           style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)', height: '100vh', objectFit: 'cover' }}
         />
       </div>
-      <br/>
       {/* Technologies Section */}
       <div id="technologies" className="col-12 p-6 mt-4 shadow-lg border border-gray-300">
         <Technologies />
       </div>
-      <br/>
       {/* Contact Us Section */}
       <div id="contact" className="col-12 p-6 mt-4 shadow-lg border border-gray-300">
         <ContactUs />
       </div>
-      <br/>
+      {/* Services Section */}
+      <div id="services" className="col-12 p-6 mt-4 shadow-lg border border-gray-300">
+        <Services />
+      </div>
       {/* Footer Section */}
       <div id="footer" className="col-12 p-6 mt-4 shadow-lg border border-gray-300">
         <Footer />
+      </div>
+      {/* Social Section */}
+      <div id="socials" className="col-12 p-6 mt-4 shadow-lg border border-gray-300">
+        <Social />
       </div>
     </div>
   );
