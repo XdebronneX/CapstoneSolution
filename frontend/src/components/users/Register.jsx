@@ -34,12 +34,12 @@ const Register = () => {
 
   useEffect(() => {
     if (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
+      toastCenter.current.show({ severity: 'error', summary: 'Error', detail: error, life: 3000 });
       dispatch(clearErrors());
     }
 
     if (success) {
-      toast.current.show({ severity: 'success', summary: 'Success', detail: 'Registration Successful', life: 3000 });
+      toastCenter.current.show({ severity: 'success', summary: 'Success', detail: 'Registration Successful', life: 3000 });
       setTimeout(() => {
         navigate("/login");
         dispatch({ type: REGISTER_USER_RESET });

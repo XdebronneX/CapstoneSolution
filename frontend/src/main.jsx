@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App.jsx'
 import './index.css'
-import '../node_modules/primereact/resources/themes/soho-light/theme.css'
-import '../node_modules/primereact/resources/primereact.min.css'
-import '../node_modules/primeicons/primeicons.css'
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css'
 import 'animate.css';
 import store from './store.jsx'

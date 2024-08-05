@@ -117,6 +117,7 @@ export const authReducer = (state = { user: {} }, action) => {
         return state;
     }
   };
+  
 export const updateProfileReducer = (state = {}, action) => {
     switch (action.type) {
         case UPDATE_PROFILE_REQUEST:

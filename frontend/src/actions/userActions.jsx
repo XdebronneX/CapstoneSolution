@@ -157,7 +157,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
             withCredentials: true
         };
 
-        const { data } = await axios.put(`${import.meta.env.VITE_APP_API}/api/v1/password/update`, passwords, config);
+        const { data } = await axios.put(`${import.meta.env.VITE_APP_API}/api/v1/me/changePassword`, passwords, config);
 
         dispatch({
             type: UPDATE_PASSWORD_SUCCESS,

@@ -168,7 +168,10 @@ exports.updateProfile = async (req, res, next) => {
           folder: "avatars",
           width: 150,
           crop: "scale",
-        }
+        },
+        // (err, res) => {
+        //   // console.log(err, res);
+        // }
       );
 
       newUserData.avatar = {
@@ -192,8 +195,8 @@ exports.updateProfile = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.error(error);
-    return next(new ErrorHandler("Failed to get user profile", 500));
+    console.log(error);
+    return next(new ErrorHandler("Failed to update user profile", 500));
   }
 };
 

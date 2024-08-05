@@ -10,13 +10,13 @@ router.route('/logout').get(logoutUser);
 
 router.get('/me', isAuthenticatedUser, getProfile);
 router.put('/me/update', isAuthenticatedUser, upload.single("avatar"), updateProfile);
-router.patch('/me/changePassword', isAuthenticatedUser, updatePassword);
+router.put('/me/changePassword', isAuthenticatedUser, updatePassword);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').put(resetPassword);
 
 //** Admin control */
 router.route('/admin/all/users').get(isAuthenticatedUser, authorizeRoles('admin'), getUsers);
-router.patch('/admin/account/deprovision/:id', isAuthenticatedUser, authorizeRoles('admin'), accountDeprovision);
+router.put('/admin/account/deprovision/:id', isAuthenticatedUser, authorizeRoles('admin'), accountDeprovision);
 router.route('/admin/users/:id').patch(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
 
 module.exports = router;

@@ -2,7 +2,7 @@ const app = require('./app');
 const csDB = require('./config/database');
 const path = require('path')
 require('dotenv').config({ path: './config/.env' });
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 
 //setup cloudinary
 cloudinary.config({

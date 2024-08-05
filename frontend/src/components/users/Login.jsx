@@ -60,7 +60,7 @@ const Login = () => {
           <span className="text-600 font-medium line-height-3">
             Don't have an account?
           </span>
-          <a onClick={RegisterHandler} className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
+          <a onClick={RegisterHandler} className="font-medium no-underline ml-2 text-blue-500 cursor-pointer block p-mr-2">
             Create today!
           </a>
         </div>
