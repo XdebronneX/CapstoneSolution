@@ -12,6 +12,12 @@ import ChangePassword from "./components/users/ChangePassword";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import Settings from "./components/users/Settings";
 import UpdateProfile from "./components/users/UpdateProfile";
+import Dashboard from "./components/admin/Dashboard";
+import UsersList from "./components/admin/user/UsersList";
+import UpdateUser from "./components/admin/user/UpdateUser";
+import NewProduct from "./components/admin/product/NewProduct";
+import ProductsList from "./components/admin/product/ProductsList";
+import UpdateProduct from "./components/admin/product/UpdateProduct";
 
 function App() {
   useEffect(() => {
@@ -25,6 +31,34 @@ function App() {
         <Route path="/" element={<Homepage />} exact={true} />
         <Route path="/register" element={<Register />} exact={true} />
         <Route path="/login" element={<Login />} exact={true} />
+        <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard /></ProtectedRoute>} />
+        <Route
+          path="/admin/all/users"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <UsersList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/users/:id"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <UpdateUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/addProduct"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <NewProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/admin/listProducts" element={<ProtectedRoute isAdmin={true} > <ProductsList /> </ProtectedRoute>} />
+        <Route path="/product/:id" element={<ProtectedRoute isAdmin={true} > <UpdateProduct /> </ProtectedRoute>} />
         <Route
           path="/me"
           element={

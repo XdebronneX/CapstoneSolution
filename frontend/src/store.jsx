@@ -10,12 +10,27 @@ import {
   authReducer,
   updateProfileReducer,
   forgotPasswordReducer,
+  allUsersReducer,
+  deprovisionReducer,
+  userDetailsReducer
 } from "./reducers/userReducers";
+import { allProductReducer, deprovisionProductReducer, newProductReducer, productDetailsReducer } from "./reducers/productReducers";
 
 const reducer = combineReducers({
   authUser: authReducer,
   updateUser: updateProfileReducer,
   forgotPassword: forgotPasswordReducer,
+
+  allUsers: allUsersReducer,
+  userDetails: userDetailsReducer,
+  userDeprovision: deprovisionReducer,
+
+  newProduct: newProductReducer,
+  allProducts: allProductReducer,
+  productDetails: productDetailsReducer,
+
+  adminProduct: deprovisionProductReducer
+
 });
 
 let initialState = {};

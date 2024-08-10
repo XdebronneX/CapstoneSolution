@@ -46,10 +46,15 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
 
-    DELETE_USER_REQUEST,
-    DELETE_USER_SUCCESS,
-    DELETE_USER_RESET,
-    DELETE_USER_FAIL,
+    SOFTDELETE_USER_REQUEST, 
+    SOFTDELETE_USER_SUCCESS ,
+    SOFTDELETE_USER_RESET,
+    SOFTDELETE_USER_FAIL,
+    
+    RESTORE_USER_REQUEST,
+    RESTORE_USER_SUCCESS,
+    RESTORE_USER_RESET,
+    RESTORE_USER_FAIL,
 
     CLEAR_ERRORS,
 
@@ -258,12 +263,21 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     }
 }
 
-export const deprovisionReducer = (state = {}, action) => {
+const initialState = {
+    loading: false,
+    isUpdated: false,
+    isSoftDelete: false,
+    isRestored: false,
+    error: null,
+};
+
+export const deprovisionReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_PROFILE_REQUEST:
         case UPDATE_PASSWORD_REQUEST:
         case UPDATE_USER_REQUEST:
-        case DELETE_USER_REQUEST:
+        case SOFTDELETE_USER_REQUEST:
+        case RESTORE_USER_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -278,11 +292,18 @@ export const deprovisionReducer = (state = {}, action) => {
                 isUpdated: action.payload,
             };
 
-        case DELETE_USER_SUCCESS:
+        case SOFTDELETE_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                isDeleted: action.payload,
+                isSoftDelete: action.payload,
+            };
+
+        case RESTORE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isRestored: action.payload,
             };
 
         case UPDATE_PROFILE_RESET:
@@ -293,26 +314,35 @@ export const deprovisionReducer = (state = {}, action) => {
                 isUpdated: false,
             };
 
-        case DELETE_USER_RESET:
+        case SOFTDELETE_USER_RESET:
             return {
                 ...state,
-                isDeleted: false,
+                isSoftDelete: false,
+            };
+
+        case RESTORE_USER_RESET:
+            return {
+                ...state,
+                isRestored: false,
             };
 
         case UPDATE_PROFILE_FAIL:
         case UPDATE_PASSWORD_FAIL:
         case UPDATE_USER_FAIL:
-        case DELETE_USER_FAIL:
+        case SOFTDELETE_USER_FAIL:
+        case RESTORE_USER_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             };
+
         case CLEAR_ERRORS:
             return {
                 ...state,
                 error: null,
             };
+
         default:
             return state;
     }

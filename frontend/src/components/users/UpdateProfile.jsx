@@ -78,7 +78,7 @@ const UpdateProfile = () => {
 
     return (
         <div className="p-fluid">
-            <Toast ref={toast} />
+            <Toast ref={toast} position='top-center' />
             <h2>Edit Profile</h2>
             <Formik
                 initialValues={initialValues}

@@ -7,9 +7,9 @@ const errorMiddleware = require("./middlewares/errors")
 const users = require("./routes/user")
 const products = require("./routes/product")
 
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ limit: "100mb", extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true

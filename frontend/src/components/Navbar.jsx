@@ -188,6 +188,12 @@ const Navbar = () => {
       }
     },
     {
+      label: "Dashboard",
+      icon: "pi pi-list",
+      // url: "/dashboard",
+      command: () => navigate("/dashboard"),
+    },
+    {
       label: "Logout",
       icon: "pi pi-sign-out",
       command: handleLogout,

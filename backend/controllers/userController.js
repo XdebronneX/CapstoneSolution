@@ -343,6 +343,25 @@ exports.getUsers = async (req, res, next) => {
   }
 };
 
+exports.getUserDetails = async (req, res, next) => {
+  try {
+    const user = await UserModel.findById(req.params.id);
+
+    if (!user) {
+      return next(new ErrorHandler(`User not found with id: ${req.params.id}`));
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    // Handle errors here
+    console.error(error);
+    return next(new ErrorHandler("Error while fetching user details"));
+  }
+};
+
 exports.updateUser = async (req, res, next) => {
     try {
         const newUserData = {
@@ -373,38 +392,38 @@ exports.updateUser = async (req, res, next) => {
     }
 };
 
-exports.accountDeprovision = async (req, res, next) => {
+// Deactivating a user
+exports.deactivateUser = async (req, res, next) => {
   try {
-    const { activation } = req.body;
-
-    // Update only the activation field
-    const user = await UserModel.findByIdAndUpdate(
-      req.params.id,
-      { activation },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-
+    const user = await UserModel.findByIdAndUpdate(req.params.id, { activation: false }, { new: true });
     if (!user) {
-      // If no user was found with the provided id, return an error response.
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
+      return next(new ErrorHandler('User not found', 404));
     }
-
-    const activationMessage = activation ? "activated!" : "deactivated!";
-
     res.status(200).json({
       success: true,
-      message: `User ${activationMessage} successfully!`,
-      user,
+      message: 'User DEACTIVATED successfully!',
+      user
     });
   } catch (error) {
-    // Handle errors here
-    console.log(error);
-    return next(new ErrorHandler("Error reset password!", 500));
+    next(new ErrorHandler('An error occurred while deactivating the user', 500));
   }
 };
+
+// Activating a user
+exports.activateUser = async (req, res, next) => {
+  try {
+    const user = await UserModel.findByIdAndUpdate(req.params.id, { activation: true }, { new: true });
+    if (!user) {
+      return next(new ErrorHandler('User not found', 404));
+    }
+    res.status(200).json({
+      success: true,
+      message: 'User ACTIVATED successfully!',
+      user
+    });
+  } catch (error) {
+    next(new ErrorHandler('An error occurred while activating the user', 500));
+  }
+};
+
+

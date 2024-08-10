@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from '../axiosConfig'
+import axios from 'axios'
 import {
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
@@ -44,10 +45,15 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
 
-    DELETE_USER_REQUEST,
-    DELETE_USER_SUCCESS,
-    DELETE_USER_RESET,
-    DELETE_USER_FAIL,
+    SOFTDELETE_USER_REQUEST, 
+    SOFTDELETE_USER_SUCCESS ,
+    SOFTDELETE_USER_RESET,
+    SOFTDELETE_USER_FAIL,
+    
+    RESTORE_USER_REQUEST,
+    RESTORE_USER_SUCCESS,
+    RESTORE_USER_RESET,
+    RESTORE_USER_FAIL,
 
     CLEAR_ERRORS,
 
@@ -233,7 +239,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 export const viewAllUsers = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_USERS_REQUEST })
-        const { data } = await axios.get(`${import.meta.env.VITE_APP_API}/api/v1/admin/view/all/users`, { withCredentials: true })
+        const { data } = await axios.get(`${import.meta.env.VITE_APP_API}/api/v1/admin/all/users`, { withCredentials: true })
 
         dispatch({
             type: ALL_USERS_SUCCESS,
@@ -249,7 +255,7 @@ export const viewAllUsers = () => async (dispatch) => {
 }
 
 // Update user - ADMIN
-export const updateUser = (id, userData) => async (dispatch) => {
+export const updateUsers = (id, userData) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_USER_REQUEST })
         const config = {
@@ -293,23 +299,51 @@ export const getUserDetails = (id) => async (dispatch) => {
     }
 }
 
-// Delete user - ADMIN
-export const deleteUser = (id) => async (dispatch) => {
+// Action to deactivate (soft delete) a user
+export const deactivatedUser = (id) => async (dispatch) => {
     try {
-        dispatch({ type: DELETE_USER_REQUEST })
-        const { data } = await axios.delete(`${import.meta.env.VITE_APP_API}/api/v1/admin/users/${id}`, { withCredentials: true });
+      dispatch({ type: SOFTDELETE_USER_REQUEST });
+      
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_APP_API}/api/v1/admin/account/deactivated/${id}`,
+        {}, // If no body data is needed
+        { withCredentials: true }
+      );
+  
+      dispatch({
+        type: SOFTDELETE_USER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SOFTDELETE_USER_FAIL,
+        payload: error.response ? error.response.data.message : error.message,
+      });
+    }
+  };
+  
+// Action to activate (restore) a user
+export const activatedUser = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: RESTORE_USER_REQUEST });
+
+        const { data } = await axios.put(
+            `${import.meta.env.VITE_APP_API}/api/v1/admin/account/activated/${id}`,
+            {}, // If no body data is needed
+            { withCredentials: true }
+        );
+
         dispatch({
-            type: DELETE_USER_SUCCESS,
-            payload: data.success
-        })
+            type: RESTORE_USER_SUCCESS,
+            payload: data,
+        });
     } catch (error) {
         dispatch({
-            type: DELETE_USER_FAIL,
-            payload: error.response.data.message
-        })
+            type: RESTORE_USER_FAIL,
+            payload: error.response.data.message,
+        });
     }
-}
-
+};
 
 export const Logout = () => async (dispatch) => {
     try {
