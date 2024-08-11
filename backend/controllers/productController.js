@@ -219,16 +219,23 @@ exports.getAdminProducts = async (req, res, next) => {
   }
 };
 
-exports.getSingleProduct = async (req, res, next) => {
-  const { id } = req.params;
+exports.getProductDetails = async (req, res, next) => {
+  try {
+      const product = await ProductModel.findById(req.params.id);
 
-  if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).json({ success: false, message: 'Product ID not found!' })
+      if (!product) {
+          return next(
+              new ErrorHandler(`Product not found with id: ${req.params.id}`)
+          );
+      }
 
-  const product = await ProductModel.findById(id)
-
-  if (!product)
-      return res.status(404).json({ success: false, message: 'Product not found!' });
-
-  return res.status(202).json({ success: true, product })
-}
+      res.status(200).json({
+          success: true,
+          product,
+      });
+  } catch (error) {
+      // Handle errors here
+      console.log(error);
+      return next(new ErrorHandler('Error while fetching product details'));
+  }
+};

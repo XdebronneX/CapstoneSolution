@@ -51,7 +51,7 @@ const NewProduct = () => {
         life: 3000,
       });
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/admin/listProducts");
       }, 3000);
       dispatch({ type: NEW_PRODUCT_RESET });
     }
@@ -470,7 +470,7 @@ return (
                     label="Cancel"
                     icon="pi pi-times"
                     className="custom-button button-cancel"
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() => navigate("/admin/listProducts")}
                   />
                 </div>
                 </Form>

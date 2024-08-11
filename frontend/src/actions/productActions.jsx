@@ -51,6 +51,28 @@ export const newProduct = (productData) => async (dispatch) => {
   }
 };
 
+export const getProducts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ALL_PRODUCTS_REQUEST,
+    });
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_APP_API}/api/v1/listProducts`,
+      { withCredentials: true }
+    );
+
+    dispatch({
+      type: ALL_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_PRODUCTS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 export const getAdminProducts = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCTS_REQUEST });
@@ -77,7 +99,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
     const { data } = await axios.get(
-      `${import.meta.env.VITE_APP_API}/api/v1/product/${id}`,
+      `${import.meta.env.VITE_APP_API}/api/v1/singleProduct/${id}`,
       { withCredentials: true }
     );
 

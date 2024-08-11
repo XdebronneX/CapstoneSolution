@@ -18,6 +18,8 @@ import UpdateUser from "./components/admin/user/UpdateUser";
 import NewProduct from "./components/admin/product/NewProduct";
 import ProductsList from "./components/admin/product/ProductsList";
 import UpdateProduct from "./components/admin/product/UpdateProduct";
+import Products from "./components/products/Products";
+import ProductDetails from "./components/products/ProductDetails";
 
 function App() {
   useEffect(() => {
@@ -29,6 +31,8 @@ function App() {
       <br />
       <Routes>
         <Route path="/" element={<Homepage />} exact={true} />
+        <Route path='/products' element={<Products />} exact='true' />
+        <Route path="/singleProduct/:id" element={<ProductDetails />} exact="true" />
         <Route path="/register" element={<Register />} exact={true} />
         <Route path="/login" element={<Login />} exact={true} />
         <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard /></ProtectedRoute>} />

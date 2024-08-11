@@ -69,6 +69,7 @@ export const allProductReducer = (state = { products: [] }, action) => {
                 ...state,
                 loading: false,
                 products: action.payload.products,
+                productsCount: action.payload.productsCount,
             };
         case ADMIN_PRODUCTS_SUCCESS:
             return {
@@ -91,7 +92,6 @@ export const allProductReducer = (state = { products: [] }, action) => {
             return state;
     }
 };
-
 
 export const productDetailsReducer = (state = { product: {} }, action) => {
   switch (action.type) {

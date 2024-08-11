@@ -114,17 +114,15 @@
 
 // export default Navbar;
 
-
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Logout } from '../actions/userActions';
+import { Logout } from "../actions/userActions";
 import { Avatar } from "primereact/avatar";
 import { Menubar } from "primereact/menubar";
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
-import imgLogo from '../assets/images/logo.png';
+import imgLogo from "../assets/images/logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -140,43 +138,59 @@ const Navbar = () => {
 
   const items = [
     {
-      label: 'Home',
-      icon: 'pi pi-home',
+      label: "Home",
+      icon: "pi pi-home",
       command: () => {
-        navigate('/');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        navigate("/");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
     },
     {
-      label: 'Technologies',
-      icon: 'pi pi-star',
+      label: "Technologies",
+      icon: "pi pi-star",
       command: () => {
-        navigate('/');
+        navigate("/");
         setTimeout(() => {
-          document.getElementById('technologies').scrollIntoView({ behavior: 'smooth' });
+          document
+            .getElementById("technologies")
+            .scrollIntoView({ behavior: "smooth" });
         }, 0);
-      }
+      },
     },
     {
-      label: 'Services',
-      icon: 'pi pi-star',
+      label: "Services",
+      icon: "pi pi-star",
       command: () => {
-        navigate('/');
+        navigate("/");
         setTimeout(() => {
-          document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+          document
+            .getElementById("services")
+            .scrollIntoView({ behavior: "smooth" });
         }, 0);
-      }
+      },
     },
     {
-      label: 'Contact Us',
-      icon: 'pi pi-envelope',
+      label: "Products",
+      icon: "pi pi-star",
       command: () => {
-        navigate('/');
+        navigate("/products");
+        // setTimeout(() => {
+        //   document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        // }, 0);
+      },
+    },
+    {
+      label: "Contact Us",
+      icon: "pi pi-envelope",
+      command: () => {
+        navigate("/");
         setTimeout(() => {
-          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+          document
+            .getElementById("contact")
+            .scrollIntoView({ behavior: "smooth" });
         }, 0);
-      }
-    }
+      },
+    },
   ];
 
   const itemProfile = [
@@ -184,8 +198,8 @@ const Navbar = () => {
       label: "Settings",
       icon: "pi pi-cog",
       command: () => {
-        navigate('/me', { replace: true });
-      }
+        navigate("/me", { replace: true });
+      },
     },
     {
       label: "Dashboard",
@@ -200,14 +214,30 @@ const Navbar = () => {
     },
   ];
 
-  const start = <img alt="logo" src={imgLogo} height="40" width="40" className="mr-2 rounded-full" />;
+  const start = (
+    <img
+      alt="logo"
+      src={imgLogo}
+      height="40"
+      width="40"
+      className="mr-2 rounded-full"
+    />
+  );
   const end = (
     <div className="flex align-items-center gap-2">
       {user ? (
         <>
-          <Menu model={itemProfile} popup ref={menuLeft} id="popup_menu_left" aria-label="User menu" />
+          <Menu
+            model={itemProfile}
+            popup
+            ref={menuLeft}
+            id="popup_menu_left"
+            aria-label="User menu"
+          />
           <Avatar
-            image={user.avatar && user.avatar.url || "/images/default-avatar.png"}
+            image={
+              (user.avatar && user.avatar.url) || "/images/default-avatar.png"
+            }
             shape="circle"
             onClick={(event) => {
               menuLeft.current.toggle(event);
@@ -216,6 +246,7 @@ const Navbar = () => {
             aria-controls="popup_menu_left"
             aria-haspopup="true"
             aria-expanded={menuVisible}
+            className="border-2 border-green-500" // Example border color using Tailwind CSS
           />
         </>
       ) : (
@@ -237,4 +268,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
