@@ -20,8 +20,24 @@ import {
   ADMIN_PRODUCTS_REQUEST,
   ADMIN_PRODUCTS_SUCCESS,
   ADMIN_PRODUCTS_FAIL,
+  SOFTDELETE_PRODUCT_REQUEST,
+  SOFTDELETE_PRODUCT_SUCCESS,
+  SOFTDELETE_PRODUCT_RESET,
+  SOFTDELETE_PRODUCT_FAIL,
+  RESTORE_PRODUCT_REQUEST,
+  RESTORE_PRODUCT_SUCCESS,
+  RESTORE_PRODUCT_RESET,
+  RESTORE_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
+
+const initialState = {
+  loading: false,
+  isUpdated: false,
+  isSoftDelete: false,
+  isRestored: false,
+  error: null,
+};
 
 export const newProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {
@@ -57,40 +73,40 @@ export const newProductReducer = (state = { product: {} }, action) => {
 };
 
 export const allProductReducer = (state = { products: [] }, action) => {
-    switch (action.type) {
-        case ALL_PRODUCTS_REQUEST:
-        case ADMIN_PRODUCTS_REQUEST:
-            return {
-                loading: true,
-                products: [],
-            };
-        case ALL_PRODUCTS_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                products: action.payload.products,
-                productsCount: action.payload.productsCount,
-            };
-        case ADMIN_PRODUCTS_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                products: action.payload,
-            };
-        case ALL_PRODUCTS_FAIL:
-        case ADMIN_PRODUCTS_FAIL:
-            return {
-                loading: false,
-                error: action.payload,
-            };
-        case CLEAR_ERRORS:
-            return {
-                ...state,
-                error: null,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ALL_PRODUCTS_REQUEST:
+    case ADMIN_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+        products: [],
+      };
+    case ALL_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload.products,
+        productsCount: action.payload.productsCount,  
+      };
+    case ADMIN_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+      };
+    case ALL_PRODUCTS_FAIL:
+    case ADMIN_PRODUCTS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
 };
 
 export const productDetailsReducer = (state = { product: {} }, action) => {
@@ -122,37 +138,64 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const deprovisionProductReducer = (state = {}, action) => {
+export const deprovisionProductReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DELETE_PRODUCT_REQUEST:
+    // case DELETE_PRODUCT_REQUEST:
     case UPDATE_PRODUCT_REQUEST:
+    case SOFTDELETE_PRODUCT_REQUEST:
+    case RESTORE_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_PRODUCT_SUCCESS:
+    case SOFTDELETE_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
-        isDeleted: action.payload,
+        isSoftDelete: action.payload,
       };
+    case RESTORE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isRestored: action.payload,
+      };
+    case SOFTDELETE_PRODUCT_RESET:
+      return {
+        ...state,
+        isSoftDelete: false,
+      };
+    case RESTORE_PRODUCT_RESET:
+      return {
+        ...state,
+        isRestored: false,
+      };
+    // case DELETE_PRODUCT_SUCCESS:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     isDeleted: action.payload,
+    //   };
     case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
-    case DELETE_PRODUCT_FAIL:
+    // case DELETE_PRODUCT_FAIL:
     case UPDATE_PRODUCT_FAIL:
+    case SOFTDELETE_PRODUCT_FAIL:
+    case RESTORE_PRODUCT_FAIL:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
-    case DELETE_PRODUCT_RESET:
-      return {
-        ...state,
-        isDeleted: false,
-      };
+    // case DELETE_PRODUCT_RESET:
+    //   return {
+    //     ...state,
+    //     isDeleted: false,
+    //   };
     case UPDATE_PRODUCT_RESET:
       return {
         ...state,

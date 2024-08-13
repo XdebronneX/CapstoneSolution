@@ -14,7 +14,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { Tag } from "primereact/tag";
 import { Tooltip } from "primereact/tooltip";
 import Sidebar from "../Sidebar";
-import { InputTextarea } from 'primereact/inputtextarea';
+import { InputTextarea } from "primereact/inputtextarea";
 
 const NewProduct = () => {
   const dispatch = useDispatch();
@@ -208,139 +208,139 @@ const NewProduct = () => {
       "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
   };
 
-//   return (
-//     <div className="flex">
-//       <Toast ref={toast} position="top-center" />
-//       <div className={`${isSidebarVisible ? "visible" : "hidden"}`}>
-//         <Sidebar />
-//       </div>
-//       <div
-//         className={`layout-main ${
-//           isSidebarVisible ? "sidebar-visible" : "sidebar-hidden"
-//         }`}
-//       >
-//         <Button
-//           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
-//           onClick={toggleSidebar}
-//           className="sidebar-toggle-btn primary-200"
-//         />
-//         <br />
-//         <Tooltip
-//           target=".custom-choose-btn"
-//           content="Choose"
-//           position="bottom"
-//         />
-//         <Tooltip
-//           target=".custom-upload-btn"
-//           content="Upload"
-//           position="bottom"
-//         />
-//         <Tooltip
-//           target=".custom-cancel-btn"
-//           content="Clear"
-//           position="bottom"
-//         />
-  
-//         <Panel header="New Product" className="my-4">
-//         <div className="card p-fluid">
-//             <Formik
-//               initialValues={{
-//                 projectTitle: "",
-//                 description: "",
-//                 price: "",
-//                 type: "",
-//               }}
-//               validationSchema={Yup.object({
-//                 projectTitle: Yup.string().required("Required"),
-//                 description: Yup.string().required("Required"),
-//                 price: Yup.number().required("Required"),
-//                 type: Yup.string().required("Required"),
-//               })}
-//               onSubmit={submitHandler}
-//             >
-//               {({ isSubmitting }) => (
-//                 <Form>
-//                     <div className="field">
-//                       <label htmlFor="projectTitle">Project Title</label>
-//                       <Field id="projectTitle" name="projectTitle" as={InputText} />
-//                       <ErrorMessage
-//                         name="projectTitle"
-//                         component="small"
-//                         className="p-error"
-//                       />
-//                     </div>
-//                     <div className="field">
-//                       <label htmlFor="description">Description</label>
-//                       <Field id="description" name="description" as={InputText} />
-//                       <ErrorMessage
-//                         name="description"
-//                         component="small"
-//                         className="p-error"
-//                       />
-//                     </div>
-  
-//                     <div className="field">
-//                       <label htmlFor="price">Price</label>
-//                       <Field id="price" name="price" type="number" as={InputText} />
-//                       <ErrorMessage
-//                         name="price"
-//                         component="small"
-//                         className="p-error"
-//                       />
-//                     </div>
-//                     <div className="field">
-//                       <label htmlFor="type">Type</label>
-//                       <Field id="type" name="type" as={InputText} />
-//                       <ErrorMessage
-//                         name="type"
-//                         component="small"
-//                         className="p-error"
-//                       />
-//                     </div>
-  
-//                   <div className="field">
-//                     <label>Images</label>
-//                     <FileUpload
-//                       name="images"
-//                       ref={fileUploadRef}
-//                       customUpload
-//                       uploadHandler={onUpload}
-//                       chooseOptions={chooseOptions}
-//                       uploadOptions={uploadOptions}
-//                       cancelOptions={cancelOptions}
-//                       headerTemplate={headerTemplate}
-//                       itemTemplate={itemTemplate}
-//                       emptyTemplate={emptyTemplate}
-//                       onClear={onClear}
-//                       multiple
-//                     />
-//                   </div>
-  
-//                   <Button
-//                     type="submit"
-//                     label="Submit"
-//                     icon="pi pi-check"
-//                     className="p-button-success p-mr-2"
-//                     disabled={isSubmitting || loading}
-//                   />
-//                   <Button
-//                     type="button"
-//                     label="Cancel"
-//                     icon="pi pi-times"
-//                     className="p-button-danger"
-//                     onClick={() => navigate("/dashboard")}
-//                   />
-//                 </Form>
-//               )}
-//             </Formik>
-//           </div>
-//         </Panel>
-//       </div>
-//     </div>
-//   );
-  
-return (
-    <div className="flex">
+  //   return (
+  //     <div className="flex">
+  //       <Toast ref={toast} position="top-center" />
+  //       <div className={`${isSidebarVisible ? "visible" : "hidden"}`}>
+  //         <Sidebar />
+  //       </div>
+  //       <div
+  //         className={`layout-main ${
+  //           isSidebarVisible ? "sidebar-visible" : "sidebar-hidden"
+  //         }`}
+  //       >
+  //         <Button
+  //           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
+  //           onClick={toggleSidebar}
+  //           className="sidebar-toggle-btn primary-200"
+  //         />
+  //         <br />
+  //         <Tooltip
+  //           target=".custom-choose-btn"
+  //           content="Choose"
+  //           position="bottom"
+  //         />
+  //         <Tooltip
+  //           target=".custom-upload-btn"
+  //           content="Upload"
+  //           position="bottom"
+  //         />
+  //         <Tooltip
+  //           target=".custom-cancel-btn"
+  //           content="Clear"
+  //           position="bottom"
+  //         />
+
+  //         <Panel header="New Product" className="my-4">
+  //         <div className="card p-fluid">
+  //             <Formik
+  //               initialValues={{
+  //                 projectTitle: "",
+  //                 description: "",
+  //                 price: "",
+  //                 type: "",
+  //               }}
+  //               validationSchema={Yup.object({
+  //                 projectTitle: Yup.string().required("Required"),
+  //                 description: Yup.string().required("Required"),
+  //                 price: Yup.number().required("Required"),
+  //                 type: Yup.string().required("Required"),
+  //               })}
+  //               onSubmit={submitHandler}
+  //             >
+  //               {({ isSubmitting }) => (
+  //                 <Form>
+  //                     <div className="field">
+  //                       <label htmlFor="projectTitle">Project Title</label>
+  //                       <Field id="projectTitle" name="projectTitle" as={InputText} />
+  //                       <ErrorMessage
+  //                         name="projectTitle"
+  //                         component="small"
+  //                         className="p-error"
+  //                       />
+  //                     </div>
+  //                     <div className="field">
+  //                       <label htmlFor="description">Description</label>
+  //                       <Field id="description" name="description" as={InputText} />
+  //                       <ErrorMessage
+  //                         name="description"
+  //                         component="small"
+  //                         className="p-error"
+  //                       />
+  //                     </div>
+
+  //                     <div className="field">
+  //                       <label htmlFor="price">Price</label>
+  //                       <Field id="price" name="price" type="number" as={InputText} />
+  //                       <ErrorMessage
+  //                         name="price"
+  //                         component="small"
+  //                         className="p-error"
+  //                       />
+  //                     </div>
+  //                     <div className="field">
+  //                       <label htmlFor="type">Type</label>
+  //                       <Field id="type" name="type" as={InputText} />
+  //                       <ErrorMessage
+  //                         name="type"
+  //                         component="small"
+  //                         className="p-error"
+  //                       />
+  //                     </div>
+
+  //                   <div className="field">
+  //                     <label>Images</label>
+  //                     <FileUpload
+  //                       name="images"
+  //                       ref={fileUploadRef}
+  //                       customUpload
+  //                       uploadHandler={onUpload}
+  //                       chooseOptions={chooseOptions}
+  //                       uploadOptions={uploadOptions}
+  //                       cancelOptions={cancelOptions}
+  //                       headerTemplate={headerTemplate}
+  //                       itemTemplate={itemTemplate}
+  //                       emptyTemplate={emptyTemplate}
+  //                       onClear={onClear}
+  //                       multiple
+  //                     />
+  //                   </div>
+
+  //                   <Button
+  //                     type="submit"
+  //                     label="Submit"
+  //                     icon="pi pi-check"
+  //                     className="p-button-success p-mr-2"
+  //                     disabled={isSubmitting || loading}
+  //                   />
+  //                   <Button
+  //                     type="button"
+  //                     label="Cancel"
+  //                     icon="pi pi-times"
+  //                     className="p-button-danger"
+  //                     onClick={() => navigate("/dashboard")}
+  //                   />
+  //                 </Form>
+  //               )}
+  //             </Formik>
+  //           </div>
+  //         </Panel>
+  //       </div>
+  //     </div>
+  //   );
+
+  return (
+    <div className="layout-wrapper">
       <Toast ref={toast} position="top-center" />
       <div className={`${isSidebarVisible ? "visible" : "hidden"}`}>
         <Sidebar />
@@ -353,137 +353,150 @@ return (
         <Button
           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
           onClick={toggleSidebar}
-          className="sidebar-toggle-btn primary-200"
+          // className="sidebar-toggle-btn primary-200"
+          className="absolute top-4 left-4 z-20  primary-200 rounded"
         />
-        <br />
-        <Tooltip
-          target=".custom-choose-btn"
-          content="Choose"
-          position="bottom"
-        />
-        <Tooltip
-          target=".custom-upload-btn"
-          content="Upload"
-          position="bottom"
-        />
-        <Tooltip
-          target=".custom-cancel-btn"
-          content="Clear"
-          position="bottom"
-        />
-  
-        <Panel header="New Product" className="my-4">
-          <div className="card p-fluid">
-            <Formik
-              initialValues={{
-                projectTitle: "",
-                description: "",
-                price: "",
-                type: "",
-              }}
-              validationSchema={Yup.object({
-                projectTitle: Yup.string().required("Required"),
-                description: Yup.string().required("Required"),
-                price: Yup.number().required("Required"),
-                type: Yup.string().required("Required"),
-              })}
-              onSubmit={submitHandler}
-            >
-              {({ isSubmitting }) => (
-                <Form>
-                  {/* Container for horizontal alignment */}
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex-1">
-                      <div className="field">
-                        <label htmlFor="projectTitle">Project Title</label>
-                        <Field id="projectTitle" name="projectTitle" as={InputText} />
-                        <ErrorMessage
-                          name="projectTitle"
-                          component="small"
-                          className="p-error"
+        <div className="mt-6">
+          <Tooltip
+            target=".custom-choose-btn"
+            content="Choose"
+            position="bottom"
+          />
+          <Tooltip
+            target=".custom-upload-btn"
+            content="Upload"
+            position="bottom"
+          />
+          <Tooltip
+            target=".custom-cancel-btn"
+            content="Clear"
+            position="bottom"
+          />
+          <div className="mt-4">
+            <Panel header="New Product" className="my-4">
+              <div className="card p-fluid">
+                <Formik
+                  initialValues={{
+                    projectTitle: "",
+                    description: "",
+                    price: "",
+                    type: "",
+                  }}
+                  validationSchema={Yup.object({
+                    projectTitle: Yup.string().required("Required"),
+                    description: Yup.string().required("Required"),
+                    price: Yup.number().required("Required"),
+                    type: Yup.string().required("Required"),
+                  })}
+                  onSubmit={submitHandler}
+                >
+                  {({ isSubmitting }) => (
+                    <Form>
+                      {/* Container for horizontal alignment */}
+                      <div className="flex flex-wrap gap-4">
+                        <div className="flex-1">
+                          <div className="field">
+                            <label htmlFor="projectTitle">Project Title</label>
+                            <Field
+                              id="projectTitle"
+                              name="projectTitle"
+                              as={InputText}
+                            />
+                            <ErrorMessage
+                              name="projectTitle"
+                              component="small"
+                              className="p-error"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="field">
+                            <label htmlFor="description">Description</label>
+                            <Field
+                              id="description"
+                              name="description"
+                              as={InputTextarea}
+                            />
+                            <ErrorMessage
+                              name="description"
+                              component="small"
+                              className="p-error"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="field">
+                            <label htmlFor="price">Price</label>
+                            <Field
+                              id="price"
+                              name="price"
+                              type="number"
+                              as={InputText}
+                            />
+                            <ErrorMessage
+                              name="price"
+                              component="small"
+                              className="p-error"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="field">
+                            <label htmlFor="type">Type</label>
+                            <Field id="type" name="type" as={InputText} />
+                            <ErrorMessage
+                              name="type"
+                              component="small"
+                              className="p-error"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="field mt-4">
+                        <label>Images</label>
+                        <FileUpload
+                          name="images"
+                          ref={fileUploadRef}
+                          customUpload
+                          uploadHandler={onUpload}
+                          chooseOptions={chooseOptions}
+                          uploadOptions={uploadOptions}
+                          cancelOptions={cancelOptions}
+                          headerTemplate={headerTemplate}
+                          itemTemplate={itemTemplate}
+                          emptyTemplate={emptyTemplate}
+                          onClear={onClear}
+                          multiple
+                          className="custom-file-upload"
                         />
                       </div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="field">
-                        <label htmlFor="description">Description</label>
-                        <Field id="description" name="description" as={InputTextarea} />
-                        <ErrorMessage
-                          name="description"
-                          component="small"
-                          className="p-error"
+                      <div className="flex gap-4 mt-4">
+                        <Button
+                          type="submit"
+                          label="Submit"
+                          icon="pi pi-check"
+                          className="custom-button button-submit"
+                          disabled={isSubmitting || loading || !imagesUploaded}
+                        />
+                        <Button
+                          type="button"
+                          label="Cancel"
+                          icon="pi pi-times"
+                          className="custom-button button-cancel"
+                          onClick={() => navigate("/admin/listProducts")}
                         />
                       </div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="field">
-                        <label htmlFor="price">Price</label>
-                        <Field id="price" name="price" type="number" as={InputText} />
-                        <ErrorMessage
-                          name="price"
-                          component="small"
-                          className="p-error"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="field">
-                        <label htmlFor="type">Type</label>
-                        <Field id="type" name="type" as={InputText} />
-                        <ErrorMessage
-                          name="type"
-                          component="small"
-                          className="p-error"
-                        />
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div className="field mt-4">
-                    <label>Images</label>
-                    <FileUpload
-                      name="images"
-                      ref={fileUploadRef}
-                      customUpload
-                      uploadHandler={onUpload}
-                      chooseOptions={chooseOptions}
-                      uploadOptions={uploadOptions}
-                      cancelOptions={cancelOptions}
-                      headerTemplate={headerTemplate}
-                      itemTemplate={itemTemplate}
-                      emptyTemplate={emptyTemplate}
-                      onClear={onClear}
-                      multiple
-                      className="custom-file-upload"
-                    />
-                  </div>
-                  <div className="flex gap-4 mt-4">
-                  <Button
-                    type="submit"
-                    label="Submit"
-                    icon="pi pi-check"
-                    className="custom-button button-submit"
-                    disabled={isSubmitting || loading || !imagesUploaded}
-                  />
-                  <Button
-                    type="button"
-                    label="Cancel"
-                    icon="pi pi-times"
-                    className="custom-button button-cancel"
-                    onClick={() => navigate("/admin/listProducts")}
-                  />
-                </div>
-                </Form>
-              )}
-            </Formik>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </Panel>
           </div>
-        </Panel>
+        </div>
       </div>
     </div>
   );
-  
-  
-  
 };
 
 export default NewProduct;

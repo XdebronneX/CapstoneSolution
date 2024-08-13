@@ -39,25 +39,25 @@ exports.registerUser = async (req, res, next) => {
 // exports.registerUser = async (req, res, next) => {
 //     const session = await mongoose.startSession();
 //     session.startTransaction();
-  
+
 //     try {
 //       // Check if the email already exists in the database
 //       const existingUser = await UserModel.findOne({ email: req.body.email });
-  
+
 //       if (existingUser) {
 //         await session.abortTransaction();
 //         session.endSession();
 //         return res.status(400).json({ message: "Email address already exists!" });
 //       }
-  
+
 //       const { firstname, lastname, email, password } = req.body;
-  
+
 //       // Create a new user if the email is unique
 //       const user = await UserModel.create([{ firstname, lastname, email, password }], { session });
-  
+
 //       await session.commitTransaction();
 //       session.endSession();
-  
+
 //       res.status(201).json({
 //         success: true,
 //         user,
@@ -168,7 +168,7 @@ exports.updateProfile = async (req, res, next) => {
           folder: "avatars",
           width: 150,
           crop: "scale",
-        },
+        }
         // (err, res) => {
         //   // console.log(err, res);
         // }
@@ -227,6 +227,11 @@ exports.forgotPassword = async (req, res, next) => {
       return next(new ErrorHandler("User not found with this email", 400));
     }
 
+    // Check if the user is activated
+    if (!user.activation) {
+      return next(new ErrorHandler("You don't have access!", 403));
+    }
+
     // Generate and set password reset token
     const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false });
@@ -268,12 +273,13 @@ exports.forgotPassword = async (req, res, next) => {
       user.resetPasswordExpire = undefined;
       await user.save({ validateBeforeSave: false });
 
+      console.error("Error while sending email:", emailError);
       return next(
         new ErrorHandler("There was an error sending the email", 500)
       );
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error while processing forgot password request:", error);
     next(
       new ErrorHandler("An error occurred while processing your request", 500)
     );
@@ -363,67 +369,77 @@ exports.getUserDetails = async (req, res, next) => {
 };
 
 exports.updateUser = async (req, res, next) => {
-    try {
-        const newUserData = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            role: req.body.role,
-        };
+  try {
+    const newUserData = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      role: req.body.role,
+    };
 
-        const user = await UserModel.findByIdAndUpdate(req.params.id, newUserData, {
-            new: true,
-            runValidators: true,
-        });
+    const user = await UserModel.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+      runValidators: true,
+    });
 
-        if (!user) {
-            // If no user was found with the provided id, return an error response.
-            return next(new ErrorHandler("User not found", 404));
-        }
-
-        res.status(200).json({
-            success: true,
-            user
-        });
-    } catch (error) {
-        // Handle errors here
-        console.error(error);
-    return next(new ErrorHandler("An error occurred while updating the user", 500));
+    if (!user) {
+      // If no user was found with the provided id, return an error response.
+      return next(new ErrorHandler("User not found", 404));
     }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    // Handle errors here
+    console.error(error);
+    return next(
+      new ErrorHandler("An error occurred while updating the user", 500)
+    );
+  }
 };
 
 // Deactivating a user
 exports.deactivateUser = async (req, res, next) => {
   try {
-    const user = await UserModel.findByIdAndUpdate(req.params.id, { activation: false }, { new: true });
+    const user = await UserModel.findByIdAndUpdate(
+      req.params.id,
+      { activation: false },
+      { new: true }
+    );
     if (!user) {
-      return next(new ErrorHandler('User not found', 404));
+      return next(new ErrorHandler("User not found", 404));
     }
     res.status(200).json({
       success: true,
-      message: 'User DEACTIVATED successfully!',
-      user
+      message: "User DEACTIVATED successfully!",
+      user,
     });
   } catch (error) {
-    next(new ErrorHandler('An error occurred while deactivating the user', 500));
+    next(
+      new ErrorHandler("An error occurred while deactivating the user", 500)
+    );
   }
 };
 
 // Activating a user
 exports.activateUser = async (req, res, next) => {
   try {
-    const user = await UserModel.findByIdAndUpdate(req.params.id, { activation: true }, { new: true });
+    const user = await UserModel.findByIdAndUpdate(
+      req.params.id,
+      { activation: true },
+      { new: true }
+    );
     if (!user) {
-      return next(new ErrorHandler('User not found', 404));
+      return next(new ErrorHandler("User not found", 404));
     }
     res.status(200).json({
       success: true,
-      message: 'User ACTIVATED successfully!',
-      user
+      message: "User ACTIVATED successfully!",
+      user,
     });
   } catch (error) {
-    next(new ErrorHandler('An error occurred while activating the user', 500));
+    next(new ErrorHandler("An error occurred while activating the user", 500));
   }
 };
-
-

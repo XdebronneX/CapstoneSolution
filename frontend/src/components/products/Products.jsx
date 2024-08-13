@@ -466,6 +466,395 @@
 // export default Products;
 
 //** 10:51pm Best ui aug 10,2024 */
+// import React, { useEffect, useRef } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getProducts, clearErrors } from "../../actions/productActions";
+// import { Card } from "primereact/card";
+// import { Button } from "primereact/button";
+// import { ProgressSpinner } from "primereact/progressspinner";
+// import { Toast } from "primereact/toast";
+// import { Divider } from "primereact/divider";
+// import { Accordion, AccordionTab } from 'primereact/accordion';
+
+// const Products = () => {
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+//   const toast = useRef(null);
+//   const { products, error, loading } = useSelector(
+//     (state) => state.allProducts
+//   );
+
+//   useEffect(() => {
+//     dispatch(getProducts());
+//     if (error) {
+//       toast.current.show({
+//         severity: "error",
+//         summary: "Error",
+//         detail: error,
+//       });
+//       dispatch(clearErrors());
+//     }
+//   }, [dispatch, error]);
+
+//   const handleProductClick = (id) => {
+//     navigate(`/singleProduct/${id}`);
+//   };
+  
+
+//   //   return (
+//   //     <div className="p-4">
+//   //       <Toast ref={toast} />
+
+//   //       {loading ? (
+//   //         <div className="flex justify-center items-center">
+//   //           <ProgressSpinner />
+//   //         </div>
+//   //       ) : (
+//   //         <>
+//   //           <h4 className="text-2xl font-bold mb-4">Products</h4>
+//   //           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+//   //             {products &&
+//   //               products.map((product) => (
+//   //                 <div key={product._id} className="w-60 h-auto bg-primary text-white font-bold border-round m-2">
+//   //                   <Card
+//   //                     style={{
+//   //                       borderRadius: "10px",
+//   //                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+//   //                       padding: "1rem",
+//   //                       width: "300px",
+//   //                       display: "flex",
+//   //                       flexDirection: "column",
+//   //                       height: "auto",
+//   //                     }}
+//   //                     header={
+//   //                       <img
+//   //                         alt={product.projectTitle}
+//   //                         src={
+//   //                           product.images && product.images.length > 0
+//   //                             ? product.images[0].url
+//   //                             : "placeholder-image-url"
+//   //                         }
+//   //                         style={{
+//   //                           width: "100%",
+//   //                           height: "200px",
+//   //                           objectFit: "cover",
+//   //                           borderRadius: "10px 10px 0 0",
+//   //                         }}
+//   //                       />
+//   //                     }
+//   //                     footer={
+//   //                       <div className="flex justify-center mt-4">
+//   //                         <Button
+//   //                           label="view details"
+//   //                           icon="pi pi-info-circle"
+//   //                           className="p-button-text"
+//   //                           style={{
+//   //                             color: "#00AEEF",
+//   //                             border: "1px solid #00AEEF",
+//   //                             borderRadius: "10px",
+//   //                             fontSize: "1rem",
+//   //                             width: "100%",
+//   //                           }}
+//   //                           disabled={product.stock <= 0}
+//   //                         />
+//   //                       </div>
+//   //                     }
+//   //                     onClick={() => handleProductClick(product._id)}
+//   //                   >
+//   //                     <Divider />
+//   //                     <div classname="flex justify-between items-center">
+//   //                         <span className="text-primary font-semibold">
+//   //                           ₱ {product.price}
+//   //                         </span>
+//   //                         <h3 className="text-lg font-semibold mb-2">
+//   //                         {product.projectTitle} <span className="text-blue-400">({product.type})</span>
+//   //                       </h3>
+//   //                       <p className="text-sm text-muted-foreground mb-2">
+//   //                         {product.description}
+//   //                       </p>
+//   //                       </div>
+//   //                     {/* <div className="p-4">
+//   //                       <h3 className="text-lg font-semibold mb-2">
+//   //                         {product.projectTitle} <br /> <span className="text-blue-400">({product.type})</span>
+//   //                       </h3>
+//   //                       <p className="text-sm text-muted-foreground mb-2">
+//   //                         {product.description}
+//   //                       </p>
+
+//   //                     </div> */}
+//   //                   </Card>
+//   //                 </div>
+//   //               ))}
+//   //           </div>
+//   //         </>
+//   //       )}
+//   //     </div>
+//   //   );
+// //   return (
+// //     <div className="p-4">
+// //       <Toast ref={toast} />
+
+// //       {loading ? (
+// //         <div className="flex justify-center items-center h-screen">
+// //           <ProgressSpinner />
+// //         </div>
+// //       ) : (
+// //         <>
+// //           <h4 className="text-2xl font-bold mb-4 text-center">Products</h4>
+// //           <div className="flex justify-center ml-4 md:ml-8">
+// //             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 me-0">
+// //               {products &&
+// //                 products.map((product) => (
+// //                   <div
+// //                     key={product._id}
+// //                     className="w-60 h-auto bg-primary text-white font-bold border-round m-0"
+// //                   >
+// //                     <Card
+// //                       style={{
+// //                         borderRadius: "10px",
+// //                         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+// //                         padding: "1rem",
+// //                         width: "300px",
+// //                         display: "flex",
+// //                         flexDirection: "column",
+// //                         height: "auto",
+// //                       }}
+// //                       header={
+// //                         <img
+// //                           alt={product.projectTitle}
+// //                           src={
+// //                             product.images && product.images.length > 0
+// //                               ? product.images[0].url
+// //                               : "placeholder-image-url"
+// //                           }
+// //                           style={{
+// //                             width: "100%",
+// //                             height: "200px",
+// //                             objectFit: "cover",
+// //                             borderRadius: "10px 10px 0 0",
+// //                           }}
+// //                         />
+// //                       }
+// //                       footer={
+// //                         <div className="flex justify-center mt-4">
+// //                           <Button
+// //                             label="View Details"
+// //                             icon="pi pi-info-circle"
+// //                             className="p-button-text"
+// //                             style={{
+// //                               color: "#00AEEF",
+// //                               border: "1px solid #00AEEF",
+// //                               borderRadius: "10px",
+// //                               fontSize: "1rem",
+// //                               width: "100%",
+// //                             }}
+// //                             disabled={product.stock <= 0}
+// //                           />
+// //                         </div>
+// //                       }
+// //                       onClick={() => handleProductClick(product._id)}
+// //                     >
+// //                       <Divider />
+// //                       <span className="text-primary font-semibold">
+// //                         ₱ {product.price}
+// //                       </span>
+// //                       <h3 className="text-lg font-semibold mb-2">
+// //                         {product.projectTitle}{" "}
+// //                         <span className="text-blue-400">({product.type})</span>
+// //                       </h3>
+// //                       <p className="text-sm text-muted-foreground mb-2">
+// //                         {product.description}
+// //                       </p>
+// //                     </Card>
+// //                   </div>
+// //                 ))}
+// //             </div>
+// //           </div>
+// //         </>
+// //       )}
+// //     </div>
+// //   );
+
+// // return (
+// //     <div className="p-4">
+// //       <Toast ref={toast} />
+  
+// //       {loading ? (
+// //         <div className="flex justify-center items-center h-screen">
+// //           <ProgressSpinner />
+// //         </div>
+// //       ) : (
+// //         <>
+// //           <h4 className="text-2xl font-bold mb-4 text-center">Products</h4>
+// //           <div className="flex justify-center md:ml-8">
+// //             <div className="flex flex-wrap justify-start md:justify-start ml-4 md:ml-8 gap-4">
+// //               {products &&
+// //                 products.map((product) => (
+// //                   <div
+// //                     key={product._id}
+// //                     className="relative"
+// //                   >
+// //                     <Card
+// //                       style={{
+// //                         borderRadius: "20px",
+// //                         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+// //                         padding: "0.5rem",
+// //                         width: "300px",
+// //                         display: "flex",
+// //                         flexDirection: "column",
+// //                         height: "auto",
+// //                         cursor: "pointer"
+// //                       }}
+// //                       header={
+// //                         <img
+// //                           alt={product.projectTitle}
+// //                           src={
+// //                             product.images && product.images.length > 0
+// //                               ? product.images[0].url
+// //                               : "placeholder-image-url"
+// //                           }
+// //                           style={{
+// //                             width: "100%",
+// //                             height: "200px",
+// //                             objectFit: "cover",
+// //                             borderRadius: "10px 10px 0 0",
+// //                           }}
+// //                         />
+// //                       }
+// //                       footer={
+// //                         <div className="flex justify-center mt-4">
+// //                           <Button
+// //                             label="View Details"
+// //                             icon="pi pi-info-circle"
+// //                             className="p-button-text"
+// //                             style={{
+// //                               color: "#00AEEF",
+// //                               border: "1px solid #00AEEF",
+// //                               borderRadius: "10px",
+// //                               fontSize: "1rem",
+// //                               width: "100%",
+// //                             }}
+// //                             disabled={product.stock <= 0}
+// //                           />
+// //                         </div>
+// //                       }
+// //                       onClick={() => handleProductClick(product._id)}
+// //                     >
+// //                       <Divider />
+// //                       <span className="text-primary font-semibold">
+// //                         ₱ {product.price}
+// //                       </span>
+// //                       <h3 className="text-lg font-semibold mb-2">
+// //                         {product.projectTitle}{" "}
+// //                         <span className="text-blue-400">({product.type})</span>
+// //                       </h3>
+// //                       <p className="text-sm text-muted-foreground mb-2">
+// //                         {product.description}
+// //                       </p>
+// //                     </Card>
+// //                   </div>
+// //                 ))}
+// //             </div>
+// //           </div>
+// //         </>
+// //       )}
+// //     </div>
+// //   );
+// return (
+//     <div className="p-4">
+//       <Toast ref={toast} />
+
+//       {loading ? (
+//         <div className="flex justify-center items-center h-screen">
+//           <ProgressSpinner />
+//         </div>
+//       ) : (
+//         <>
+//           <h4 className="text-2xl font-bold mb-4 text-center">Products</h4>
+//           <div className="flex justify-center md:ml-8">
+//             <div className="flex flex-wrap justify-start md:justify-start ml-4 md:ml-8 gap-2">
+//               {products &&
+//                 products.map((product) => (
+//                   <div key={product._id} className="relative">
+//                     <Card
+//                       style={{
+//                         borderRadius: '20px',
+//                         boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+//                         padding: '0.5rem',
+//                         width: '300px',
+//                         display: 'flex',
+//                         flexDirection: 'column',
+//                         height: 'auto',
+//                         cursor: 'pointer',
+//                       }}
+//                       header={
+//                         <img
+//                           alt={product.projectTitle}
+//                           src={
+//                             product.images && product.images.length > 0
+//                               ? product.images[0].url
+//                               : 'placeholder-image-url'
+//                           }
+//                           style={{
+//                             width: '100%',
+//                             height: '200px',
+//                             objectFit: 'cover',
+//                             borderRadius: '10px 10px 0 0',
+//                           }}
+//                         />
+//                       }
+//                       footer={
+//                         <div className="flex justify-center mt-4">
+//                           <Button
+//                             label="more details"
+//                             icon="pi pi-info-circle"
+//                             className="p-button-text"
+//                             style={{
+//                               color: '#00AEEF',
+//                               border: '1px solid #00AEEF',
+//                               borderRadius: '10px',
+//                               fontSize: '1rem',
+//                               width: '100%',
+//                             }}
+//                             // disabled={product.stock <= 0}
+//                             onClick={() => handleProductClick(product._id)}
+//                           />
+//                         </div>
+//                       }
+//                     >
+//                       <Divider />
+//                       <span className="text-primary font-semibold">
+//                         ₱ {product.price.toLocaleString(undefined, {
+//                                 minimumFractionDigits: 2,
+//                               })}
+//                       </span>
+//                       <h3 className="text-lg font-semibold mb-2">
+//                         {product.projectTitle}
+//                       </h3>
+//                       <h4> <span className="text-blue-400">({product.type})</span></h4>
+//                       {/* <Accordion>
+//                         <AccordionTab header="Details">
+//                           <p className="text-sm text-muted-foreground mb-2">
+//                             {product.description}
+//                           </p>
+//                         </AccordionTab>
+//                       </Accordion> */}
+//                     </Card>
+//                   </div>
+//                 ))}
+//             </div>
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Products;
+
+
+
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -475,7 +864,6 @@ import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
-import { Accordion, AccordionTab } from 'primereact/accordion';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -500,268 +888,8 @@ const Products = () => {
   const handleProductClick = (id) => {
     navigate(`/singleProduct/${id}`);
   };
-  
 
-  //   return (
-  //     <div className="p-4">
-  //       <Toast ref={toast} />
-
-  //       {loading ? (
-  //         <div className="flex justify-center items-center">
-  //           <ProgressSpinner />
-  //         </div>
-  //       ) : (
-  //         <>
-  //           <h4 className="text-2xl font-bold mb-4">Products</h4>
-  //           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-  //             {products &&
-  //               products.map((product) => (
-  //                 <div key={product._id} className="w-60 h-auto bg-primary text-white font-bold border-round m-2">
-  //                   <Card
-  //                     style={{
-  //                       borderRadius: "10px",
-  //                       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  //                       padding: "1rem",
-  //                       width: "300px",
-  //                       display: "flex",
-  //                       flexDirection: "column",
-  //                       height: "auto",
-  //                     }}
-  //                     header={
-  //                       <img
-  //                         alt={product.projectTitle}
-  //                         src={
-  //                           product.images && product.images.length > 0
-  //                             ? product.images[0].url
-  //                             : "placeholder-image-url"
-  //                         }
-  //                         style={{
-  //                           width: "100%",
-  //                           height: "200px",
-  //                           objectFit: "cover",
-  //                           borderRadius: "10px 10px 0 0",
-  //                         }}
-  //                       />
-  //                     }
-  //                     footer={
-  //                       <div className="flex justify-center mt-4">
-  //                         <Button
-  //                           label="view details"
-  //                           icon="pi pi-info-circle"
-  //                           className="p-button-text"
-  //                           style={{
-  //                             color: "#00AEEF",
-  //                             border: "1px solid #00AEEF",
-  //                             borderRadius: "10px",
-  //                             fontSize: "1rem",
-  //                             width: "100%",
-  //                           }}
-  //                           disabled={product.stock <= 0}
-  //                         />
-  //                       </div>
-  //                     }
-  //                     onClick={() => handleProductClick(product._id)}
-  //                   >
-  //                     <Divider />
-  //                     <div classname="flex justify-between items-center">
-  //                         <span className="text-primary font-semibold">
-  //                           ₱ {product.price}
-  //                         </span>
-  //                         <h3 className="text-lg font-semibold mb-2">
-  //                         {product.projectTitle} <span className="text-blue-400">({product.type})</span>
-  //                       </h3>
-  //                       <p className="text-sm text-muted-foreground mb-2">
-  //                         {product.description}
-  //                       </p>
-  //                       </div>
-  //                     {/* <div className="p-4">
-  //                       <h3 className="text-lg font-semibold mb-2">
-  //                         {product.projectTitle} <br /> <span className="text-blue-400">({product.type})</span>
-  //                       </h3>
-  //                       <p className="text-sm text-muted-foreground mb-2">
-  //                         {product.description}
-  //                       </p>
-
-  //                     </div> */}
-  //                   </Card>
-  //                 </div>
-  //               ))}
-  //           </div>
-  //         </>
-  //       )}
-  //     </div>
-  //   );
-//   return (
-//     <div className="p-4">
-//       <Toast ref={toast} />
-
-//       {loading ? (
-//         <div className="flex justify-center items-center h-screen">
-//           <ProgressSpinner />
-//         </div>
-//       ) : (
-//         <>
-//           <h4 className="text-2xl font-bold mb-4 text-center">Products</h4>
-//           <div className="flex justify-center ml-4 md:ml-8">
-//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 me-0">
-//               {products &&
-//                 products.map((product) => (
-//                   <div
-//                     key={product._id}
-//                     className="w-60 h-auto bg-primary text-white font-bold border-round m-0"
-//                   >
-//                     <Card
-//                       style={{
-//                         borderRadius: "10px",
-//                         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-//                         padding: "1rem",
-//                         width: "300px",
-//                         display: "flex",
-//                         flexDirection: "column",
-//                         height: "auto",
-//                       }}
-//                       header={
-//                         <img
-//                           alt={product.projectTitle}
-//                           src={
-//                             product.images && product.images.length > 0
-//                               ? product.images[0].url
-//                               : "placeholder-image-url"
-//                           }
-//                           style={{
-//                             width: "100%",
-//                             height: "200px",
-//                             objectFit: "cover",
-//                             borderRadius: "10px 10px 0 0",
-//                           }}
-//                         />
-//                       }
-//                       footer={
-//                         <div className="flex justify-center mt-4">
-//                           <Button
-//                             label="View Details"
-//                             icon="pi pi-info-circle"
-//                             className="p-button-text"
-//                             style={{
-//                               color: "#00AEEF",
-//                               border: "1px solid #00AEEF",
-//                               borderRadius: "10px",
-//                               fontSize: "1rem",
-//                               width: "100%",
-//                             }}
-//                             disabled={product.stock <= 0}
-//                           />
-//                         </div>
-//                       }
-//                       onClick={() => handleProductClick(product._id)}
-//                     >
-//                       <Divider />
-//                       <span className="text-primary font-semibold">
-//                         ₱ {product.price}
-//                       </span>
-//                       <h3 className="text-lg font-semibold mb-2">
-//                         {product.projectTitle}{" "}
-//                         <span className="text-blue-400">({product.type})</span>
-//                       </h3>
-//                       <p className="text-sm text-muted-foreground mb-2">
-//                         {product.description}
-//                       </p>
-//                     </Card>
-//                   </div>
-//                 ))}
-//             </div>
-//           </div>
-//         </>
-//       )}
-//     </div>
-//   );
-
-// return (
-//     <div className="p-4">
-//       <Toast ref={toast} />
-  
-//       {loading ? (
-//         <div className="flex justify-center items-center h-screen">
-//           <ProgressSpinner />
-//         </div>
-//       ) : (
-//         <>
-//           <h4 className="text-2xl font-bold mb-4 text-center">Products</h4>
-//           <div className="flex justify-center md:ml-8">
-//             <div className="flex flex-wrap justify-start md:justify-start ml-4 md:ml-8 gap-4">
-//               {products &&
-//                 products.map((product) => (
-//                   <div
-//                     key={product._id}
-//                     className="relative"
-//                   >
-//                     <Card
-//                       style={{
-//                         borderRadius: "20px",
-//                         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-//                         padding: "0.5rem",
-//                         width: "300px",
-//                         display: "flex",
-//                         flexDirection: "column",
-//                         height: "auto",
-//                         cursor: "pointer"
-//                       }}
-//                       header={
-//                         <img
-//                           alt={product.projectTitle}
-//                           src={
-//                             product.images && product.images.length > 0
-//                               ? product.images[0].url
-//                               : "placeholder-image-url"
-//                           }
-//                           style={{
-//                             width: "100%",
-//                             height: "200px",
-//                             objectFit: "cover",
-//                             borderRadius: "10px 10px 0 0",
-//                           }}
-//                         />
-//                       }
-//                       footer={
-//                         <div className="flex justify-center mt-4">
-//                           <Button
-//                             label="View Details"
-//                             icon="pi pi-info-circle"
-//                             className="p-button-text"
-//                             style={{
-//                               color: "#00AEEF",
-//                               border: "1px solid #00AEEF",
-//                               borderRadius: "10px",
-//                               fontSize: "1rem",
-//                               width: "100%",
-//                             }}
-//                             disabled={product.stock <= 0}
-//                           />
-//                         </div>
-//                       }
-//                       onClick={() => handleProductClick(product._id)}
-//                     >
-//                       <Divider />
-//                       <span className="text-primary font-semibold">
-//                         ₱ {product.price}
-//                       </span>
-//                       <h3 className="text-lg font-semibold mb-2">
-//                         {product.projectTitle}{" "}
-//                         <span className="text-blue-400">({product.type})</span>
-//                       </h3>
-//                       <p className="text-sm text-muted-foreground mb-2">
-//                         {product.description}
-//                       </p>
-//                     </Card>
-//                   </div>
-//                 ))}
-//             </div>
-//           </div>
-//         </>
-//       )}
-//     </div>
-//   );
-return (
+  return (
     <div className="p-4">
       <Toast ref={toast} />
 
@@ -776,72 +904,71 @@ return (
             <div className="flex flex-wrap justify-start md:justify-start ml-4 md:ml-8 gap-2">
               {products &&
                 products.map((product) => (
-                  <div key={product._id} className="relative">
-                    <Card
-                      style={{
-                        borderRadius: '20px',
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                        padding: '0.5rem',
-                        width: '300px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 'auto',
-                        cursor: 'pointer',
-                      }}
-                      header={
-                        <img
-                          alt={product.projectTitle}
-                          src={
-                            product.images && product.images.length > 0
-                              ? product.images[0].url
-                              : 'placeholder-image-url'
-                          }
-                          style={{
-                            width: '100%',
-                            height: '200px',
-                            objectFit: 'cover',
-                            borderRadius: '10px 10px 0 0',
-                          }}
-                        />
-                      }
-                      footer={
-                        <div className="flex justify-center mt-4">
-                          <Button
-                            label="more details"
-                            icon="pi pi-info-circle"
-                            className="p-button-text"
+                  // Only render the card if the product is activated
+                  product.activation && (
+                    <div key={product._id} className="relative">
+                      <Card
+                        style={{
+                          borderRadius: '20px',
+                          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                          padding: '0.5rem',
+                          width: '300px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: 'auto',
+                          cursor: 'pointer',
+                        }}
+                        header={
+                          <img
+                            alt={product.projectTitle}
+                            src={
+                              product.images && product.images.length > 0
+                                ? product.images[0].url
+                                : 'placeholder-image-url'
+                            }
                             style={{
-                              color: '#00AEEF',
-                              border: '1px solid #00AEEF',
-                              borderRadius: '10px',
-                              fontSize: '1rem',
                               width: '100%',
+                              height: '200px',
+                              objectFit: 'cover',
+                              borderRadius: '10px 10px 0 0',
                             }}
-                            // disabled={product.stock <= 0}
-                            onClick={() => handleProductClick(product._id)}
                           />
-                        </div>
-                      }
-                    >
-                      <Divider />
-                      <span className="text-primary font-semibold">
-                        ₱ {product.price.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
-                      </span>
-                      <h3 className="text-lg font-semibold mb-2">
-                        {product.projectTitle}
-                      </h3>
-                      <h4> <span className="text-blue-400">({product.type})</span></h4>
-                      {/* <Accordion>
-                        <AccordionTab header="Details">
-                          <p className="text-sm text-muted-foreground mb-2">
-                            {product.description}
-                          </p>
-                        </AccordionTab>
-                      </Accordion> */}
-                    </Card>
-                  </div>
+                        }
+                        footer={
+                          <div className="flex justify-center mt-4">
+                            <Button
+                              label="More details"
+                              icon="pi pi-info-circle"
+                              className="p-button-text"
+                              style={{
+                                color: '#00AEEF',
+                                border: '1px solid #00AEEF',
+                                borderRadius: '10px',
+                                fontSize: '1rem',
+                                width: '100%',
+                              }}
+                              onClick={() => handleProductClick(product._id)}
+                            />
+                          </div>
+                        }
+                      >
+                        <Divider />
+                        <span className="text-primary font-semibold">
+                          ₱ {product.price.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                          })}
+                        </span>
+                        <h3 className="text-lg font-semibold mb-2">
+                          {product.projectTitle}
+                        </h3>
+                        <h4>
+                          <span className="text-blue-400">
+                            ({product.type})
+                          </span>
+                        </h4>
+                      </Card>
+                    </div>
+                  )
                 ))}
             </div>
           </div>

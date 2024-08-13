@@ -279,8 +279,9 @@ const Dashboard = () => {
         <Button
           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
           onClick={toggleSidebar}
-          className="sidebar-toggle-btn primary-200"
+          className="absolute top-4 left-4 z-20  primary-200 rounded"
         />
+        <br />
         <br />
         <br />
         {/* <h1>Dashboard</h1> */}

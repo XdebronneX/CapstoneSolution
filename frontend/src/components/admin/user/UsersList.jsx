@@ -155,6 +155,7 @@ import Swal from "sweetalert2";
 import Sidebar from "../Sidebar";
 import { FilterMatchMode } from "primereact/api";
 import Loader from "../../Loader";
+import { Tag } from "primereact/tag";
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -241,7 +242,15 @@ const UsersList = () => {
   };
 
   const activationBodyTemplate = (rowData) => {
-    return rowData.activation ? "Activated" : "Deactivated";
+    return (
+      <Tag
+        className="p-mr-1"
+        icon="pi pi-info-circle"
+        severity={rowData.activation ? "success" : "danger"}
+        value={rowData.activation ? "Activated" : "Deactivated"}
+        // style={{ borderRadius: "10%", display: "flex", alignItems: "center" }}
+      />
+    );
   };
 
   const roleBadgeTemplate = (rowData) => {
@@ -332,11 +341,10 @@ const UsersList = () => {
         <Button
           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
           onClick={toggleSidebar}
-          className="sidebar-toggle-btn primary-200"
+          // className="sidebar-toggle-btn primary-200"
+          className="absolute top-4 left-4 z-20  primary-200 rounded"
         />
-        <br />
-        <br />
-
+       <div className="mt-6"> 
         <div className="card">
           <DataTable
             value={users.filter(
@@ -392,6 +400,7 @@ const UsersList = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

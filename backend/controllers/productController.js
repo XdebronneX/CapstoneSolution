@@ -119,6 +119,11 @@ exports.updateProduct = async (req, res, next) => {
     return next(new ErrorHandler("Product not found", 404));
   }
 
+  // Check if the user is activated
+  if (!product.activation) {
+    return next(new ErrorHandler("Product is not available!", 403));
+  }
+
   let images = [];
 
   if (typeof req.body.images === "string") {
@@ -167,23 +172,69 @@ exports.updateProduct = async (req, res, next) => {
   });
 };
 
-exports.deleteProduct = async (req, res, next) => {
-  try {
-    const product = await ProductModel.findById(req.params.id);
+// exports.deleteProduct = async (req, res, next) => {
+//   try {
+//     const product = await ProductModel.findById(req.params.id);
 
+//     if (!product) {
+//       return next(new ErrorHandler("Product not found", 404));
+//     }
+
+//     await product.deleteOne();
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Product deleted",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     next(new ErrorHandler(error.message, 500));
+//   }
+// };
+
+exports.deactivateProduct = async (req, res, next) => {
+  try {
+    const product = await ProductModel.findByIdAndUpdate(
+      req.params.id,
+      { activation: false },
+      { new: true }
+    );
     if (!product) {
       return next(new ErrorHandler("Product not found", 404));
     }
-
-    await product.deleteOne();
-
     res.status(200).json({
       success: true,
-      message: "Product deleted",
+      message: "Deactivated Success!",
+      product,
     });
   } catch (error) {
     console.log(error);
-    next(new ErrorHandler(error.message, 500));
+    next(
+      new ErrorHandler("An error occurred while disabling the product", 500)
+    );
+  }
+};
+
+exports.reactivateProduct = async (req, res, next) => {
+  try {
+    const product = await ProductModel.findByIdAndUpdate(
+      req.params.id,
+      { activation: true },
+      { new: true }
+    );
+    if (!product) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+    res.status(200).json({
+      success: true,
+      message: "Reactivated Success!",
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    next(
+      new ErrorHandler("An error occurred while disabling the product", 500)
+    );
   }
 };
 
@@ -227,6 +278,10 @@ exports.getProductDetails = async (req, res, next) => {
           return next(
               new ErrorHandler(`Product not found with id: ${req.params.id}`)
           );
+      }
+      // Check if the user is activated
+      if (!product.activation) {
+        return next(new ErrorHandler("Product is not available!", 403));
       }
 
       res.status(200).json({

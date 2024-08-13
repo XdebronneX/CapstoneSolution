@@ -84,19 +84,48 @@ export const RegisterUser = (userData) => async (dispatch) => {
     }
 }
 
+// export const LoginUsers = (email, password) => async (dispatch) => {
+//     try {
+//         dispatch({
+//             type: LOGIN_REQUEST
+//         })
+//         const config = {
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             withCredentials: true
+//         }
+//         const { data } = await axios.post(`${import.meta.env.VITE_APP_API}/api/v1/login`, { email, password }, config);
+//         console.log('Login Response:', data);
+//         dispatch({
+//             type: LOGIN_SUCCESS,
+//             payload: data.user
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: LOGIN_FAIL,
+//             payload: error.response.data.message
+//         })
+//     }
+// }
+
+// Load user profile
+
 export const LoginUsers = (email, password) => async (dispatch) => {
     try {
         dispatch({
             type: LOGIN_REQUEST
-        })
+        });
+
         const config = {
             headers: {
                 "Content-Type": "application/json",
             },
             withCredentials: true
-        }
+        };
+
         const { data } = await axios.post(`${import.meta.env.VITE_APP_API}/api/v1/login`, { email, password }, config);
-        console.log('Login Response:', data);
+
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
@@ -105,11 +134,10 @@ export const LoginUsers = (email, password) => async (dispatch) => {
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message
-        })
+        });
     }
-}
+};
 
-// Load user profile
 export const LoadUser = () => async (dispatch) => {
     try {
         dispatch({

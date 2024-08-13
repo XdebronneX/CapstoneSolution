@@ -97,7 +97,7 @@ const UpdateUser = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="layout-wrapper">
       <div className={`${isSidebarVisible ? "visible" : "hidden"}`}>
         <Sidebar />
       </div>
@@ -109,9 +109,10 @@ const UpdateUser = () => {
         <Button
           icon={isSidebarVisible ? "pi pi-times" : "pi pi-bars"}
           onClick={toggleSidebar}
-          className="sidebar-toggle-btn primary-200"
+          // className="sidebar-toggle-btn primary-200"
+          className="absolute top-4 left-4 z-20  primary-200 rounded"
         />
-        <br />
+        <div className="mt-6"> 
         <Toast ref={toast} position="top-center" />
         <Panel header="Edit user informations" className="my-4">
           <div className="card p-fluid">
@@ -205,6 +206,7 @@ const UpdateUser = () => {
           </div>
         </Panel>
       </div>
+    </div>
     </div>
   );
 };

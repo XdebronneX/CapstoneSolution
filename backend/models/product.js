@@ -28,6 +28,10 @@ const productSchema = new mongoose.Schema({
             required: true,
         },
     }],
+    activation : {
+        type: Boolean,
+        default: true
+    },
     createdAt: {
         type: Date,
         default: Date.now,

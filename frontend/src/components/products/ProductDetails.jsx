@@ -258,6 +258,158 @@
 
 // export default ProductDetails;
 
+//** without add to cart  */
+// import React, { Fragment, useEffect, useRef } from "react";
+// import { useParams } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Card } from "primereact/card";
+// import { Carousel } from "primereact/carousel";
+// import { ProgressSpinner } from "primereact/progressspinner";
+// import { Toast } from "primereact/toast";
+// import { Divider } from "primereact/divider";
+// import { getProductDetails, clearErrors } from "../../actions/productActions";
+// import { addItemToCart } from "../../actions/cartActions";
+
+// const ProductDetails = () => {
+//   const dispatch = useDispatch();
+//   const { id } = useParams();
+//   const toast = useRef(null);
+
+//   const { loading, error, product } = useSelector(
+//     (state) => state.productDetails
+//   );
+//   const [quantity, setQuantity] = useState(1);
+
+//   useEffect(() => {
+//     dispatch(getProductDetails(id));
+//     if (error) {
+//       toast.current.show({
+//         severity: "error",
+//         summary: "Error",
+//         detail: error,
+//       });
+//       dispatch(clearErrors());
+//     }
+//   }, [dispatch, error, id]);
+
+//   const increaseQty = () => {
+//     const count = document.querySelector(".count");
+//     if (count.valueAsNumber >= product.stock) return;
+//     const qty = count.valueAsNumber + 1;
+//     setQuantity(qty);
+//   };
+
+//   const decreaseQty = () => {
+//     const count = document.querySelector(".count");
+//     if (count.valueAsNumber <= 1) return;
+//     const qty = count.valueAsNumber - 1;
+//     setQuantity(qty);
+//   };
+
+//   const addToCart = () => {
+//     dispatch(addItemToCart(id, quantity));
+//     successMsg("Item added!");
+//   };
+
+//   const imageTemplate = (item) => {
+//     return (
+//       <img
+//         src={item.url}
+//         alt={product.projectTitle}
+//         // className="w-full h-screen object-cover rounded-sm"
+//             style={{
+//             width: "100%",
+//             height: "900px",
+//             objectFit: "cover",
+//             borderRadius: "12px",
+//           }}
+//       />
+//     );
+//   };
+
+//   return (
+//     <Fragment className="layout-wrapper">
+//       <Toast ref={toast} />
+//       {loading ? (
+//         <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-100 to-gray-200">
+//           <ProgressSpinner />
+//         </div>
+//       ) : error ? (
+//         <div className="flex justify-center items-center min-h-screen">
+//           <p className="text-red-500">Error: {error}</p>
+//         </div>
+//       ) : (
+//         <div className="bg-gradient-to-r from-gray-100 to-gray-200 min-h-screen py-5 px-8">
+//           <div className="container mx-auto grid lg:grid-cols-2 gap-8">
+//             {/* Carousel */}
+//             <Card className="p-0 rounded-lg shadow-2xl">
+//               <Carousel
+//                 value={product.images}
+//                 numVisible={1}
+//                 circular
+//                 autoplayInterval={3000}
+//                 itemTemplate={imageTemplate}
+//                 className="w-full h-96"
+//               />
+//             </Card>
+
+//             {/* Product Details */}
+//             <Card className="container mx-auto grid lg:grid-cols-2 gap-8 shadow-lg">
+//               <div>
+//                 <h1 className="text-4xl font-extrabold mb-4 text-gray-800">
+//                   {product.projectTitle}
+//                 </h1>
+//                 <p className="text-sm text-gray-500 mb-2"># {product._id}</p>
+//                 <p className="text-2xl font-bold text-blue-600 mb-6">
+//                   ₱{" "}
+//                   {product.price !== undefined
+//                     ? product.price.toLocaleString(undefined, {
+//                         minimumFractionDigits: 2,
+//                       })
+//                     : "N/A"}
+//                 </p>
+//                 <Divider />
+//                 <div className="mt-6">
+//                   <p className="text-lg font-semibold mb-2">Description</p>
+//                   <p className="text-gray-700 text-justify leading-relaxed">
+//                     {product.description}
+//                   </p>
+//                 </div>
+//               </div>
+//               {/* Optional Add to Cart Section */}
+//               {/* <div className="flex items-center my-4">
+//                 <Button
+//                   icon="pi pi-minus"
+//                   className="p-button-rounded p-button-danger mr-2"
+//                 />
+//                 <input
+//                   type="number"
+//                   className="form-control mx-2 text-center w-20"
+//                   value={1} // Static value since we are not handling quantity here
+//                   readOnly
+//                 />
+//                 <Button
+//                   icon="pi pi-plus"
+//                   className="p-button-rounded p-button-primary ml-2"
+//                 />
+//                 <Button
+//                   label="Add to Cart"
+//                   className="ml-4"
+//                   disabled={product.stock === 0}
+//                 />
+//               </div> */}
+//             </Card>
+//           </div>
+//         </div>
+//       )}
+//     </Fragment>
+//   );
+// };
+
+// export default ProductDetails;
+
+
+
 import React, { Fragment, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -266,7 +418,9 @@ import { Carousel } from "primereact/carousel";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Toast } from "primereact/toast";
 import { Divider } from "primereact/divider";
+import { Button } from "primereact/button"; // Import Button component
 import { getProductDetails, clearErrors } from "../../actions/productActions";
+import { addItemToCart } from "../../actions/cartActions";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -289,18 +443,26 @@ const ProductDetails = () => {
     }
   }, [dispatch, error, id]);
 
+  const addToCart = () => {
+    dispatch(addItemToCart(id,));
+    toast.current.show({
+      severity: "success",
+      summary: "Success",
+      detail: "Item added to cart",
+    });
+  };
+
   const imageTemplate = (item) => {
     return (
       <img
         src={item.url}
         alt={product.projectTitle}
-        // className="w-full h-screen object-cover rounded-sm"
-            style={{
-            width: "100%",
-            height: "900px",
-            objectFit: "cover",
-            borderRadius: "12px",
-          }}
+        style={{
+          width: "100%",
+          height: "900px",
+          objectFit: "cover",
+          borderRadius: "12px",
+        }}
       />
     );
   };
@@ -332,7 +494,7 @@ const ProductDetails = () => {
             </Card>
 
             {/* Product Details */}
-            <Card className="container mx-auto grid lg:grid-cols-2 gap-8 shadow-lg">
+            <Card className="p-6 rounded-lg shadow-lg">
               <div>
                 <h1 className="text-4xl font-extrabold mb-4 text-gray-800">
                   {product.projectTitle}
@@ -353,29 +515,12 @@ const ProductDetails = () => {
                     {product.description}
                   </p>
                 </div>
+                <Button
+                  label="Buy Now"
+                  className="mt-6 p-button-primary"
+                  onClick={addToCart}
+                />
               </div>
-              {/* Optional Add to Cart Section */}
-              {/* <div className="flex items-center my-4">
-                <Button
-                  icon="pi pi-minus"
-                  className="p-button-rounded p-button-danger mr-2"
-                />
-                <input
-                  type="number"
-                  className="form-control mx-2 text-center w-20"
-                  value={1} // Static value since we are not handling quantity here
-                  readOnly
-                />
-                <Button
-                  icon="pi pi-plus"
-                  className="p-button-rounded p-button-primary ml-2"
-                />
-                <Button
-                  label="Add to Cart"
-                  className="ml-4"
-                  disabled={product.stock === 0}
-                />
-              </div> */}
             </Card>
           </div>
         </div>
@@ -385,4 +530,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
